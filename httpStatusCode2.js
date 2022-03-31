@@ -71,6 +71,4 @@ const statusCode = [
     { status: '598', message: 'Network read timeout error' },
     { status: '599', message: 'Network connect timeout error' },
 ];
-
-//let stat = statusCode.status['200'].message;
-console.log(statusCode[0].message);
+console.log(statusCode[0].status);

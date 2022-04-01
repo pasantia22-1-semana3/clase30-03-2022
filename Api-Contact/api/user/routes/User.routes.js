@@ -18,23 +18,26 @@ export class UserRoutes{
         this.router.put('/:id', this.updateUser.bind(this));
        // this.router.delete('/:id', this._ctl.delete);
     }
-    async getAllUser(req,res){
+    getAllUser(req,res){
         try {
-            let result = await this._ctl.getAll();
-            response.success(req,res,result,HttpStatusCode.OK);
+            let result = this._ctl.getAll();
+            if(result){
+                return response.success(req,res,result,HttpStatusCode.OK);
+            }
+            return response.error(req,res,result,HttpStatusCode.INTERNAL_SERVER_ERROR);
         } catch (error) {
             console.log(error);
-            response.error(req,res,error,HttpStatusCode.INTERNAL_SERVER_ERROR);
+            return response.error(req,res,error,HttpStatusCode.INTERNAL_SERVER_ERROR);
         }
     }
 
     async getUserById(req,res){
         try {
             let result = await this._ctl.getById(req.params.id);
-            response.success(req,res,result,HttpStatusCode.OK);
+            return response.success(req,res,result,HttpStatusCode.OK);
         } catch (error) {
             console.log(error);
-            response.error(req,res,error,HttpStatusCode.INTERNAL_SERVER_ERROR);
+            return response.error(req,res,error,HttpStatusCode.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -43,21 +46,21 @@ export class UserRoutes{
             let result = await this._ctl.create(req.body);
             if(result){
                 let message = `User ${result.username} has been created`;
-                response.success(req,res,message,HttpStatusCode.OK);
+                return response.success(req,res,message,HttpStatusCode.OK);
             }
         } catch (error) {
             console.log(error);
-            response.error(req,res,error,HttpStatusCode.INTERNAL_SERVER_ERROR);
+            return response.error(req,res,error,HttpStatusCode.INTERNAL_SERVER_ERROR);
         }
     }
 
     async updateUser(req,res){
         try {
           let result = this._ctl.update(req.params.id,req.body);
-          response.success(req,res,result,HttpStatusCode.OK);  
+          return response.success(req,res,result,HttpStatusCode.OK);  
         } catch (error) {
             console.log(error);
-            response.error(req,res,error,HttpStatusCode.INTERNAL_SERVER_ERROR);
+            return response.error(req,res,error,HttpStatusCode.INTERNAL_SERVER_ERROR);
         }
     }
 }

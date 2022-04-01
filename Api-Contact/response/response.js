@@ -4,7 +4,7 @@ export const response = {
     success: (req,res, message,status) => {
         let statusCode = status || HttpStatusCode.OK;
         let data = message ||'';
-        res.status(200).json({
+        res.status(statusCode).json({
             error: false, 
             status: statusCode,
             body: data,

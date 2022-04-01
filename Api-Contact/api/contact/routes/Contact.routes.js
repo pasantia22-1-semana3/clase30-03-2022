@@ -1,5 +1,6 @@
 import {response} from "../../../response/response.js";
 import { HttpStatusCode } from "../../../utils/httpStatusCode.js";
+import { verifyApiToken } from "../../midleware/Autorization.js";
 
 export class ContactRouter{
     constructor(express,controller){
@@ -77,7 +78,7 @@ export class ContactRouter{
  *                $ref: '#/components/schemas/Contact'
  *                    
  */
-        this.router.get("/", this.getAllContacts.bind(this));
+        this.router.get("/", verifyApiToken,this.getAllContacts.bind(this));
 /**
  * @swagger
  * /api/v1/contact:
@@ -189,11 +190,11 @@ export class ContactRouter{
     getAllContacts(req,res){
         try {
             let result = this._ctl.getAll();
-            response.success(req,res,result,HttpStatusCode.OK);
+            return response.success(req,res,result,HttpStatusCode.OK);
         } catch (error) {
             console.error(error);
             let message = 'No contacts found';
-            response.error(req,res,message,HttpStatusCode.INTERNAL_SERVER_ERROR);
+            return response.error(req,res,message,HttpStatusCode.INTERNAL_SERVER_ERROR);
         }
     }
 

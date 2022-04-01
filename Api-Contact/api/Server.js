@@ -21,6 +21,7 @@ export default class Server{
       this._name = config.api.name;
       this._contact = routes.contact;
       this._user = routes.user;
+      this._auth = routes.auth;
       this._swaggerSpec = config.doc;
       this.setMiddleware();
       this.setRoutes();
@@ -38,6 +39,7 @@ export default class Server{
       this._api.use(root.CONTACT,this._contact);
       this._api.use(root.USER,this._user);
       this._api.use(root.DOCS,swaggerUI.serve,swaggerUI.setup(swaggerJsDoc(this._swaggerSpec)))
+      this._api.use(root.LOGIN,this._auth);
     }
     // Start the server
     start(){

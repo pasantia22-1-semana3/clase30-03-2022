@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import { encryptOption } from '../../../utils/bcrypt.js';
 
 export class User{
@@ -6,11 +5,17 @@ export class User{
         this.id = 0;
         this.username = user.username;
         this.email = user.email;
-        this.password = this.encryptPassword(user.password);
-        this.created_at = new Date().getDate();
+        this.password = user.password;
+        this.created_at = this.getDateNow();
     }
     
+    getDateNow(){
+        let time = Date.now();
+        let date = new Date(time);
+        return date.toDateString();
+    }
+
     encryptPassword(password){
-        return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+        this.password = encryptOption.encrypt(password);
     }
 }

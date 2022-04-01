@@ -5,8 +5,8 @@ const model = new UserJsonFileModel();
 export class UserController{
     constructor(){}
 
-    async getAll(){
-        return await model.all();
+    getAll(){
+        return model.all();
     }
 
     getById(id){
@@ -15,6 +15,7 @@ export class UserController{
 
     create(user){
         let newUser = new User(user);
+        newUser.encryptPassword(user.password);
         return model.save(newUser);
     }
 

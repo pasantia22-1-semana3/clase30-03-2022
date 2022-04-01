@@ -22,5 +22,8 @@ export const config={
             ]
         },
         apis:[`api/contact/routes/*.js`],
+    },
+    jwt:{
+        secret: process.env.JWT_SECRET || 'secret!',
     }
 }

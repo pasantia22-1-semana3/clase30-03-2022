@@ -1,5 +1,5 @@
 GET http://localhost:4000/api/v1/user
-
+Content-Type: application/json
 
 
 ###
@@ -7,7 +7,10 @@ POST http://localhost:4000/api/v1/user
 Content-Type: application/json
 
 {
-  "username": "John Doe",
-  "email": "miemail@mail.com",
-  "password": "123456"
+  "username": "admin",
+  "email": "admin@mail.com",
+  "password": "contrasena"
 }
+
+###
+POST http://localhost:4000/api/v1/auth
